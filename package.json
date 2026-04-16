@@ -1,0 +1,26 @@
+{
+  "name": "technical-climate-and-air-quality",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "node --watch src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LuiferEduardoo/technical-climate-and-air-quality.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/LuiferEduardoo/technical-climate-and-air-quality/issues"
+  },
+  "homepage": "https://github.com/LuiferEduardoo/technical-climate-and-air-quality#readme",
+  "dependencies": {
+    "express": "^5.2.1"
+  }
+}
