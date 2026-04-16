@@ -168,6 +168,55 @@ src/
 
 ---
 
-## Licencia
+## Deploy en Azure
 
-ISC
+El proyecto incluye un pipeline de CI/CD con GitHub Actions que despliega automáticamente a **Azure App Service** en cada push a `main`.
+
+### Archivos de configuración
+
+| Archivo | Propósito |
+|---|---|
+| `Dockerfile` | Imagen de la aplicación basada en `node:20-alpine` |
+| `.dockerignore` | Excluye `node_modules`, `.env` y `.git` de la imagen |
+| `.github/workflows/azure-deploy.yml` | Pipeline de build y deploy automático |
+
+### Pasos para configurar el deploy
+
+**1. Crear el Azure Web App**
+
+En [Azure Portal](https://portal.azure.com):
+- Crear un recurso **App Service**
+- Runtime stack: **Node 20 LTS**
+- Sistema operativo: **Linux**
+
+**2. Obtener el Publish Profile**
+
+Dentro del App Service → **Overview** → **Download publish profile**.  
+Copiar el contenido completo del archivo `.PublishSettings` descargado.
+
+**3. Agregar el secret en GitHub**
+
+En el repositorio → **Settings** → **Secrets and variables** → **Actions** → **New repository secret**:
+
+- Nombre: `AZURE_WEBAPP_PUBLISH_PROFILE`
+- Valor: el contenido del archivo `.PublishSettings`
+
+**4. Configurar las variables de entorno en Azure**
+
+En el App Service → **Settings** → **Environment variables**, agregar:
+
+```
+OPENAQ_API_KEY
+IPINFO_TOKEN
+OPENIA_API_KEY
+```
+
+**5. Cambiar el nombre de la app en el workflow**
+
+En `.github/workflows/azure-deploy.yml`, reemplazar el valor de `AZURE_WEBAPP_NAME` por el nombre real del App Service creado en Azure.
+
+**6. Hacer push a `main`**
+
+El pipeline se ejecuta automáticamente y despliega la aplicación.
+
+---
